@@ -6,6 +6,7 @@ import com.github.pedrovgs.effectiveandroidui.executor.Executor;
 import com.github.pedrovgs.effectiveandroidui.executor.Interactor;
 import com.github.pedrovgs.effectiveandroidui.executor.MainThread;
 import com.github.pedrovgs.effectiveandroidui.util.RandomUtils;
+
 import java.util.Collection;
 import javax.inject.Inject;
 

@@ -46,6 +46,8 @@ dependencies {
   compile 'com.jakewharton:butterknife:5.1.+'
   compile 'com.github.pedrovgs:renderers:1.1.+'
   compile 'com.squareup.picasso:picasso:2.3.+'
+  compile 'org.mockito:mockito-all:1.9.5'
+  androidTestCompile 'junit:junit:4.10'
 }
 
 task checkstyle(type: Checkstyle) {
