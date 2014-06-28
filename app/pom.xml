@@ -80,5 +80,17 @@
             <artifactId>renderers</artifactId>
             <version>1.0.9</version>
         </dependency>
+        <dependency>
+                <groupId>com.android.support</groupId>
+                <artifactId>appcompat-v7</artifactId>
+                <version>19.1.0</version>
+                <type>apklib</type>
+            </dependency>
+        <dependency>
+            <groupId>com.android.support</groupId>
+            <artifactId>appcompat-v7</artifactId>
+            <version>19.1.0</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
 </project>
