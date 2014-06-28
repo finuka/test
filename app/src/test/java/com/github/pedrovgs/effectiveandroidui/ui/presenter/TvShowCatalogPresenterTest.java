@@ -16,82 +16,69 @@ import static org.mockito.Mockito.when;
  */
 public class TvShowCatalogPresenterTest {
 
-    @Mock
-    GetTvShows getTvShowsMock;
+  @Mock GetTvShows getTvShowsMock;
 
-    @Mock
-    TvShowCatalogPresenter.View viewMock;
+  @Mock TvShowCatalogPresenter.View viewMock;
 
-    @Mock
-    TvShow tvShowMock;
+  @Mock TvShow tvShowMock;
 
-    private TvShowCatalogPresenter tvShowCatalogPresenter;
+  private TvShowCatalogPresenter tvShowCatalogPresenter;
 
-    @Before
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
+  @Before
+  public void setUp() {
+    MockitoAnnotations.initMocks(this);
 
-        tvShowCatalogPresenter = new TvShowCatalogPresenter(getTvShowsMock);
-    }
+    tvShowCatalogPresenter = new TvShowCatalogPresenter(getTvShowsMock);
+  }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void setViewWithNullViewShouldThrowsAnException() {
+  @Test(expected = IllegalArgumentException.class)
+  public void setViewWithNullViewShouldThrowsAnException() {
 
-        tvShowCatalogPresenter.setView(null);
+    tvShowCatalogPresenter.setView(null);
+  }
 
-    }
+  @Test(expected = IllegalArgumentException.class)
+  public void initializeShouldThrowsAnExceptionWhenViewIsNotSet() {
 
-    @Test(expected = IllegalArgumentException.class)
-    public void initializeShouldThrowsAnExceptionWhenViewIsNotSet() {
+    tvShowCatalogPresenter.initialize();
+  }
 
-        tvShowCatalogPresenter.initialize();
+  @Test
+  public void loadTvShowsShouldShowLoadingWhenViewIsReady() {
+    when(viewMock.isReady()).thenReturn(true);
 
-    }
+    tvShowCatalogPresenter.setView(viewMock);
+    tvShowCatalogPresenter.initialize();
 
-    @Test
-    public void loadTvShowsShouldShowLoadingWhenViewIsReady() {
-        when(viewMock.isReady()).thenReturn(true);
+    verify(viewMock).showLoading();
+  }
 
-        tvShowCatalogPresenter.setView(viewMock);
-        tvShowCatalogPresenter.initialize();
+  @Test
+  public void initializeShouldLoadsVideos() {
 
-        verify(viewMock).showLoading();
-    }
+    tvShowCatalogPresenter.setView(viewMock);
+    tvShowCatalogPresenter.initialize();
 
-    @Test
-    public void initializeShouldLoadsVideos() {
+    verify(getTvShowsMock).execute(any(GetTvShows.Callback.class));
+  }
 
-        tvShowCatalogPresenter.setView(viewMock);
-        tvShowCatalogPresenter.initialize();
+  @Test
+  public void onTvShowThumbnailClickedShouldShowTvShow() {
 
-        verify(getTvShowsMock).execute(any(GetTvShows.Callback.class));
+    tvShowCatalogPresenter.setView(viewMock);
 
-    }
+    tvShowCatalogPresenter.onTvShowThumbnailClicked(tvShowMock);
 
-    @Test(expected = IllegalArgumentException.class)
-    public void resumeShouldThrowsAnExceptionWhenViewIsNotSet() {
-        tvShowCatalogPresenter.resume();
-    }
+    verify(viewMock).showTvShow(tvShowMock);
+  }
 
-    @Test
-    public void onTvShowThumbnailClickedShouldShowTvShow() {
+  @Test
+  public void onTvShowClickedShouldShowTvShowInfo() {
 
-        tvShowCatalogPresenter.setView(viewMock);
+    tvShowCatalogPresenter.setView(viewMock);
 
-        tvShowCatalogPresenter.onTvShowThumbnailClicked(tvShowMock);
+    tvShowCatalogPresenter.onTvShowClicked(tvShowMock);
 
-        verify(viewMock).showTvShow(tvShowMock);
-
-    }
-
-    @Test
-    public void onTvShowClickedShouldShowTvShowInfo() {
-
-        tvShowCatalogPresenter.setView(viewMock);
-
-        tvShowCatalogPresenter.onTvShowClicked(tvShowMock);
-
-        verify(viewMock).showTvShowInfo(tvShowMock);
-    }
-
+    verify(viewMock).showTvShowInfo(tvShowMock);
+  }
 }

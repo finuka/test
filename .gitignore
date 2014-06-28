@@ -43,3 +43,6 @@ gradlew
 gradlew.bat
 gradle/
 build/
+
+# Maven
+target
