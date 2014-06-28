@@ -59,11 +59,6 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>com.github.pedrovgs</groupId>
-        <artifactId>renderers</artifactId>
-        <version>${renderers.version}</version>
-      </dependency>
-      <dependency>
         <groupId>com.squareup.picasso</groupId>
         <artifactId>picasso</artifactId>
         <version>${picasso.version}</version>
@@ -131,8 +126,8 @@
       <dependency>
         <groupId>com.android.support</groupId>
         <artifactId>appcompat-v7</artifactId>
-        <version>${appcompat-v7.version}</version>
         <type>aar</type>
+        <version>${appcompat-v7.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
