@@ -49,11 +49,11 @@
     <butterknife.version>5.1.1</butterknife.version>
     <junit.version>4.11</junit.version>
     <mockito-all.version>1.9.5</mockito-all.version>
-    <android.version>1.5_r4</android.version>
-    <robolectric.version>2.2</robolectric.version>
+    <android.version>4.1.1.4</android.version>
     <library.version>2.4.0</library.version>
     <draggablepanel.version>1.0.3</draggablepanel.version>
     <appcompat-v7.version>19.1.0</appcompat-v7.version>
+    <robolectric.version>2.2</robolectric.version>
   </properties>
 
   <dependencyManagement>
@@ -110,6 +110,7 @@
         <groupId>org.robolectric</groupId>
         <artifactId>robolectric</artifactId>
         <version>${robolectric.version}</version>
+        <scope>test</scope>
       </dependency>
       <dependency>
         <groupId>com.nineoldandroids</groupId>
