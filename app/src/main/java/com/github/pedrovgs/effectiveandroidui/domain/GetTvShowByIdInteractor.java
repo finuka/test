@@ -30,14 +30,16 @@ class GetTvShowByIdInteractor implements Interactor, GetTvShowById {
   private final Executor executor;
   private final MainThread mainThread;
   private final Catalog catalog;
+  private final RandomUtils randomUtils;
 
   private String tvShowId;
   private Callback callback;
 
-  @Inject GetTvShowByIdInteractor(Executor executor, MainThread mainThread, Catalog catalog) {
+  @Inject GetTvShowByIdInteractor(Executor executor, MainThread mainThread, Catalog catalog, RandomUtils randomUtils) {
     this.executor = executor;
     this.mainThread = mainThread;
     this.catalog = catalog;
+    this.randomUtils = randomUtils;
   }
 
   @Override public void execute(final String tvShowId, final Callback callback) {
@@ -71,7 +73,7 @@ class GetTvShowByIdInteractor implements Interactor, GetTvShowById {
   }
 
   private boolean haveToShowError() {
-    return RandomUtils.percent(PERCENTAGE_OF_FAILS);
+    return randomUtils.expectedPercent(PERCENTAGE_OF_FAILS);
   }
 
   private void searchTvShow() {
@@ -116,4 +118,12 @@ class GetTvShowByIdInteractor implements Interactor, GetTvShowById {
       }
     });
   }
+
+    /**
+     * For test only, set a callback
+     * @param callback
+     */
+    protected void setCallback(GetTvShowById.Callback callback) {
+        this.callback = callback;
+    }
 }

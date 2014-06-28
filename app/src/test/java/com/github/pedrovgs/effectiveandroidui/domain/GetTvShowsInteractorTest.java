@@ -4,7 +4,7 @@ import com.github.pedrovgs.effectiveandroidui.domain.tvshow.Catalog;
 import com.github.pedrovgs.effectiveandroidui.executor.Executor;
 import com.github.pedrovgs.effectiveandroidui.test.doubles.SynchronousExecutor;
 import com.github.pedrovgs.effectiveandroidui.test.doubles.SynchronousMainThread;
-import com.github.pedrovgs.effectiveandroidui.util.RandomUtilsRefactored;
+import com.github.pedrovgs.effectiveandroidui.util.RandomUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -27,10 +27,9 @@ public class GetTvShowsInteractorTest {
     GetTvShows.Callback callbackMock;
 
     @Mock
-    RandomUtilsRefactored randomUtilsMock;
+    RandomUtils randomUtilsMock;
 
     private GetTvShowsInteractor getTvShowsInteractor;
-    private GetTvShowsInteractorRefactored getTvShowsInteractorRefactored;
 
     private SynchronousMainThread synchronousMainThread;
 
@@ -43,9 +42,6 @@ public class GetTvShowsInteractorTest {
 
         getTvShowsInteractor = new GetTvShowsInteractor(catalogMock,
                 new SynchronousExecutor(),
-                synchronousMainThread);
-
-        getTvShowsInteractorRefactored = new GetTvShowsInteractorRefactored(catalogMock, new SynchronousExecutor(),
                 synchronousMainThread, randomUtilsMock);
     }
 
@@ -75,7 +71,8 @@ public class GetTvShowsInteractorTest {
     public void executeShouldRunExecutor() { //TODO, BETTER NAME!!!
         //given
         Executor executorMock = Mockito.mock(Executor.class);
-        GetTvShowsInteractor interactor =  new GetTvShowsInteractor(catalogMock, executorMock, synchronousMainThread);
+        GetTvShowsInteractor interactor =  new GetTvShowsInteractor(catalogMock,
+                executorMock, synchronousMainThread, randomUtilsMock);
 
         //when
         interactor.execute(callbackMock);
@@ -108,10 +105,11 @@ public class GetTvShowsInteractorTest {
     @Test
     public void runShouldShowError() {
         //given
-        when(randomUtilsMock.percent(anyInt())).thenReturn(true);
+        when(randomUtilsMock.expectedPercent(anyInt())).thenReturn(true);
+        getTvShowsInteractor.setCallback(callbackMock);
 
         //when
-        getTvShowsInteractorRefactored.run();
+        getTvShowsInteractor.run();
 
         //then
         verify(callbackMock).onConnectionError();
@@ -120,10 +118,11 @@ public class GetTvShowsInteractorTest {
     @Test
     public void runShouldLoadShows() {
         //given
-        when(randomUtilsMock.percent(anyInt())).thenReturn(false);
+        when(randomUtilsMock.expectedPercent(anyInt())).thenReturn(false);
+        getTvShowsInteractor.setCallback(callbackMock);
 
         //when
-        getTvShowsInteractorRefactored.run();
+        getTvShowsInteractor.run();
 
         //then
         verify(callbackMock).onTvShowsLoaded(catalogMock.getTvShows());

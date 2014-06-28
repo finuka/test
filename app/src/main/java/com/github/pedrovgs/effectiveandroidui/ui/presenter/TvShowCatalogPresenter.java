@@ -11,8 +11,8 @@ import javax.inject.Singleton;
  *
  * This is a sample of Model View Presenter pattern described in the talk Effective Android UI.
  *
- * We have attached the presenter to the Fragment lifecycle using method like initialize() resume()
- * and pause(). We are going to use this methods to connect our presenter with Android components
+ * We have attached the presenter to the Fragment lifecycle using methods like initialize() resume()
+ * and pause(). We are going to use these methods to connect our presenter with Android components
  * lifecycle.
  *
  * @author Pedro Vicente Gómez Sánchez

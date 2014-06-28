@@ -30,13 +30,15 @@ class GetTvShowsInteractor implements Interactor, GetTvShows {
   private final Catalog catalog;
   private final Executor executor;
   private final MainThread mainThread;
+  private final RandomUtils randomUtils;
 
   private Callback callback;
 
-  @Inject GetTvShowsInteractor(Catalog catalog, Executor executor, MainThread mainThread) {
+  @Inject GetTvShowsInteractor(Catalog catalog, Executor executor, MainThread mainThread, RandomUtils randomUtils) {
     this.catalog = catalog;
     this.executor = executor;
     this.mainThread = mainThread;
+    this.randomUtils = randomUtils;
   }
 
   @Override public void execute(final Callback callback) {
@@ -73,7 +75,7 @@ class GetTvShowsInteractor implements Interactor, GetTvShows {
   }
 
   private boolean haveToShowError() {
-    return RandomUtils.percent(PERCENTAGE_OF_FAILS);
+    return randomUtils.expectedPercent(PERCENTAGE_OF_FAILS);
   }
 
   private void notifyError() {
@@ -90,5 +92,13 @@ class GetTvShowsInteractor implements Interactor, GetTvShows {
         callback.onTvShowsLoaded(tvShows);
       }
     });
+  }
+
+    /**
+     * For test only, set a callback
+     * @param callback
+     */
+  protected void setCallback(Callback callback) {
+      this.callback = callback;
   }
 }
