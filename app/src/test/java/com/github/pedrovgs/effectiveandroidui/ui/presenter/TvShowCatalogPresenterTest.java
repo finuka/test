@@ -9,6 +9,7 @@ import org.mockito.MockitoAnnotations;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * Created by fina on 28/06/14.
@@ -45,6 +46,16 @@ public class TvShowCatalogPresenterTest {
 
         tvShowCatalogPresenter.initialize();
 
+    }
+
+    @Test
+    public void loadTvShowsShouldShowLoadingWhenViewIsReady() {
+        when(viewMock.isReady()).thenReturn(true);
+
+        tvShowCatalogPresenter.setView(viewMock);
+        tvShowCatalogPresenter.initialize();
+
+        verify(viewMock).showLoading();
     }
 
     @Test
