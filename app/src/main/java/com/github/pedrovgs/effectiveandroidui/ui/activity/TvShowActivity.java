@@ -46,8 +46,8 @@ public class TvShowActivity extends BaseActivity {
   private String tvShowId;
 
   /**
-   * Generates the intent neede by the client code to launch this activity. This method is a sample
-   * of who to avoid duplicate this code by all the application.
+   * Generates the intent needed by the client code to launch this activity. This method is a sample
+   * of how to avoid duplicating this code by all the application.
    */
   public static Intent getLaunchIntent(final Context context, final String tvShowId) {
     if (StringUtils.isNullOrEmpty(tvShowId)) {
